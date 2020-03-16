@@ -1,0 +1,5 @@
+#!/bin/sh
+
+menu(){
+    echo "Sistema Não Suportado!"
+}

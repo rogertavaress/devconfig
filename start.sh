@@ -1,13 +1,14 @@
 #!/bin/bash
 
 #RECURSOS
+. ./shared/system
 . ./resources
 . ./system_data
 . ./environment
 
 #FUNÇÕES
 start_program(){
-$DIALOG --title "YES/NO BOX" --clear --help-button "$@" \
+$DIALOG --title "DevConfig - Bem-vindos" --clear --help-button "$@" \
         --yesno "
 Olá, esse script foi criado para gerar um ambiente de desenvolvimento completo no linux.
 
@@ -18,20 +19,10 @@ retval=$?
 
 case ${retval:-0} in
   $DIALOG_OK)
-    echo "YES"
-    case ${OS} in
-        "arch")
-            . ./arch/index
-            menu;;
-        "ubuntu")
-            . ./ubuntu/index
-            echo "Sistema não suportado"
-        "")
-            echo "Sistema não suportado"
-    esac
+    menu
     ;;
   $DIALOG_CANCEL)
-    echo "NO";;
+    exit;;
   $DIALOG_HELP)
     echo "Help pressed."
     xdg-open ${URL_DOC};;
@@ -42,5 +33,5 @@ case ${retval:-0} in
 esac
 }
 
-sudo pacman -Syu
+atualizar
 start_program

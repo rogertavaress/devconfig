@@ -1,0 +1,20 @@
+#!/bin/sh
+
+exit(){
+    $DIALOG --title "DevConfig - Bem-vindos" --clear "$@" \
+        --yesno "
+Tem certeza que quer sair?
+" 9 50
+
+retval=$?
+
+case "${retval:-0}" in
+  $DIALOG_OK)
+    echo "Bye!";;
+  $DIALOG_CANCEL)
+    menu
+    exit;;
+  $DIALOG_ESC)
+    echo "ESC pressed.";;
+esac
+}

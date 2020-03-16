@@ -4,3 +4,12 @@ OS=$(sudo cat /etc/*-release | grep "ID=" | head -n 1)
 OS=${OS#*=}
 Version=$(sudo cat /etc/*-release | grep "BUILD_ID=" | head -n 1)
 Version=${Version#*=}
+
+case ${OS} in
+    "arch")
+        . ./arch/index;;
+    "ubuntu")
+        . ./ubuntu/index;;
+    "")
+        echo "Sistema não suportado";;
+esac

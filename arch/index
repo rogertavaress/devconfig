@@ -1,5 +1,30 @@
 #!/bin/sh
 
+atualizar(){
+    sudo pacman -Syu -y
+}
+
 menu(){
-    echo "Menu Arch"
+    $DIALOG --clear --title "Menu de Instalação" "$@" \
+        --menu "Agora vamos começar as configurações
+
+        Escolha uma opção:" 20 70 4 \
+        "VSCode"  "Instala e configura o VSCode da Microsoft" \
+        "Node" "Instala a versão desejada do NodeJS" \
+        "Docker" "Instala e configura o Docker Community Edition" \
+        "Android" "Instala e configura o ambiente Android para desenvolvimento" \
+        "dotNet" "Instala e configura o dotNet Core" \
+        "Python" "Instala e configura o Python" 2> $tempfile
+
+retval=$?
+resp=$(cat "$tempfile")
+
+case "${retval:-0}" in
+  $DIALOG_OK)
+    echo "Opção: $resp";;
+  $DIALOG_CANCEL)
+    exit;;
+  $DIALOG_ESC)
+    echo "ESC pressed.";;
+esac
 }
